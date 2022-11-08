@@ -2,8 +2,11 @@ const Tutorial = require("../models/tutorial.model.js");
 
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
+  console.log(req.query)
+
+  // res.send(req)
   // Validate request
-  if (!req.body) {
+  if (!req) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -11,9 +14,9 @@ exports.create = (req, res) => {
 
   // Create a Tutorial
   const tutorial = new Tutorial({
-    title: req.body.title,
-    description: req.body.description,
-    published: req.body.published || false
+    title: req.query.title,
+    description: req.query.description,
+    published: req.query.published || false
   });
 
   // Save Tutorial in the database
@@ -128,3 +131,5 @@ exports.deleteAll = (req, res) => {
     else res.send({ message: `All Tutorials were deleted successfully!` });
   });
 };
+
+
